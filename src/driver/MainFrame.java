@@ -48,17 +48,16 @@ public class MainFrame extends JFrame{
 				movieFormPanel.setGridBag(form);
 				contentPanel.add(movieFormPanel);
 				
-				
 				//add the display panel
-				
-				
-				displayPanel.setWindow();
+				displayPanel.setPane();
 				contentPanel.add(displayPanel);
+				
 				
 				
 				//add content panel
 				add(contentPanel);
-
+				
+				
 	}
 }
 

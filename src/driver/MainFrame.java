@@ -6,9 +6,9 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import maincomponents.MovieForm;
-import maincomponents.MovieFormPanel;
-import maincomponents.DisplayPanel;
+import guicomponents.DisplayPanel;
+import guicomponents.MovieForm;
+import guicomponents.MovieFormPanel;
 
 //main application code
 @SuppressWarnings("serial")

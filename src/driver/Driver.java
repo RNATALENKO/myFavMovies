@@ -7,9 +7,9 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import maincomponents.MovieForm;
-import maincomponents.MovieFormPanel;
 import driver.MainFrame;
+import guicomponents.MovieForm;
+import guicomponents.MovieFormPanel;
 
 
 

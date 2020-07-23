@@ -6,7 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import guicomponents.DisplayPanel;
+import guicomponents.SplitDisplay;
 import guicomponents.MovieForm;
 import guicomponents.MovieFormPanel;
 
@@ -20,7 +20,7 @@ public class MainFrame extends JFrame{
 	//list of main component objects
 	MovieForm form = new MovieForm(); 
 	MovieFormPanel movieFormPanel = new MovieFormPanel(); 
-	DisplayPanel displayPanel = new DisplayPanel(); 
+	SplitDisplay displayPanel = new SplitDisplay(); 
 	
 	
 	private void setWindow() {

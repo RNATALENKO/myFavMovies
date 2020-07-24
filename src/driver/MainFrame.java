@@ -2,10 +2,15 @@ package driver;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import buttonhandler.MovieButtonExecutor;
+import data.DataHandler;
+import data.DataManager;
 import guicomponents.SplitDisplay;
 import guicomponents.MovieForm;
 import guicomponents.MovieFormPanel;
@@ -21,6 +26,10 @@ public class MainFrame extends JFrame{
 	MovieForm form = new MovieForm(); 
 	MovieFormPanel movieFormPanel = new MovieFormPanel(); 
 	SplitDisplay displayPanel = new SplitDisplay(); 
+	DataManager dm = new DataManager();
+	DataHandler dh = new DataHandler(dm);
+	MovieButtonExecutor mbe = new MovieButtonExecutor(form, dh);
+	ResultSet allRecords;
 	
 	
 	private void setWindow() {
@@ -52,10 +61,40 @@ public class MainFrame extends JFrame{
 				displayPanel.setPane();
 				contentPanel.add(displayPanel);
 				
-				
-				
 				//add content panel
 				add(contentPanel);
+				
+				
+				
+				//first make sure values are being passed in
+				System.out.println(form.getGenreField().getText());
+				
+				
+				
+				//activate add button execution
+				mbe.executeAdd();
+				
+				
+				//get results of all query
+				try {
+					allRecords = dh.getAllRecords();
+					while(allRecords.next()) {
+						System.out.print(allRecords.getString(2));
+						System.out.print(allRecords.getString(3));
+						System.out.println();
+					}
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			
+				
+			
+				
+				
+				
 				
 				
 	}

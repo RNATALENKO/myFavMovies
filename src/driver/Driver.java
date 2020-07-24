@@ -13,7 +13,11 @@ import guicomponents.MovieFormPanel;
 
 
 
-
+/*
+ * reminder: remote repository short name is myfavmovies
+ * to push to git hub use git push myfavmovies --all for all content/commits
+ * 
+ */
 
 
 public class Driver {

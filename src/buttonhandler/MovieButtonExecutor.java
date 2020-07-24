@@ -12,10 +12,17 @@ import guicomponents.MovieForm;
 
 //handles all button executions and logic
 
-public class MovieButtonExecuter {
+public class MovieButtonExecutor {
 	
 	private MovieForm form;
 	private DataHandler dataHandler; 
+	
+	
+	//constructor, takes in a form and datahandler
+	public MovieButtonExecutor(MovieForm form, DataHandler handler) {
+		this.form = form; 
+		this.dataHandler = handler; 
+	}
 	
 	public MovieForm getForm() {
 		return form;
@@ -52,12 +59,25 @@ public class MovieButtonExecuter {
 					e1.printStackTrace();
 				}
 				
+				
+				
+				
+				//print the form values 
+				//just to check what's being added
+				System.out.println(form.getMovieNameField().getText());
+				System.out.println(form.getGenreField().getText());
+				
+				
+				
+				
+				
 			}
 			
 		});
 		
 	}
 	
+	/*
 	public void executeDelete() {
 		form.getDeleteButton().addActionListener(new ActionListener() {
 
@@ -74,6 +94,7 @@ public class MovieButtonExecuter {
 			
 		});
 	}
+	
 	
 	public void executeDeleteAll() {
 		
@@ -103,8 +124,11 @@ public class MovieButtonExecuter {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				//need method that updates table
+				
+				
+				//need method that updates JTable
 			}
 		});
+		*/
 	}
-}
+

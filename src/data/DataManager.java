@@ -9,9 +9,8 @@ import java.sql.Statement;
 
 public class DataManager {
 	
-	public Connection conn;
+	private Connection conn;
 	boolean hasConnection = false; 
-	
 	
 	//method that gets connection, then creates database if none exist
 	public void getConnection() throws ClassNotFoundException, SQLException {
@@ -37,12 +36,24 @@ public class DataManager {
 				
 				//create the table
 				Statement createTable = conn.createStatement();
-				createTable.execute("CREATE TABLE favorites (id integer, name varchar(255), genre varchar(255), primary key(id);");	
+				createTable.execute("CREATE TABLE movies (id integer, name varchar(255), genre varchar(255), primary key(id))");	
 			}
 		}
+	}
+
+
+	public Connection getConn() {
+		return conn;
+	}
+
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
 	}
 	
 	
 	
-	
 }
+	
+	
+

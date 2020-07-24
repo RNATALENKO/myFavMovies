@@ -46,6 +46,7 @@ public class DataHandler {
 				}	
 		}
 		
+		
 		//method that deletes a movie to the database (needs to check for connection)
 		public void deleteMovie(String movieName) throws SQLException, ClassNotFoundException {
 		
@@ -94,19 +95,32 @@ public class DataHandler {
 			Statement queryAllData = this.dm.getConn().createStatement();
 			ResultSet allData = queryAllData.executeQuery("SELECT * FROM movies");
 			
+			/* this code does not work here for some reason
 			if(this.dm.getConn()!= null) {
 				this.dm.getConn().close();
 				this.dm.setConn(nullconn);
 				}	
+			*/
 			
 			return allData; 
 		}
 		
 		
+		//method that will count number of rows
+		public int countNumberOfRows(ResultSet results) {
+			int rows; 
+			
+			
+			
+			return rows; 
+		}
 		
+		
+		/*
 		//method that will close connection and reset after it's null
 		public void resetConnectionToNull() {
 			
 		}
+		*/
 
 }

@@ -12,6 +12,9 @@ import guicomponents.MovieForm;
 
 //handles all button executions and logic
 
+
+//these buttons need validation for empty fields, if they're empty then don't execute
+
 public class MovieButtonExecutor {
 	
 	private MovieForm form;
@@ -70,14 +73,13 @@ public class MovieButtonExecutor {
 				
 				
 				
-				
 			}
 			
 		});
 		
 	}
 	
-	/*
+	
 	public void executeDelete() {
 		form.getDeleteButton().addActionListener(new ActionListener() {
 
@@ -96,6 +98,7 @@ public class MovieButtonExecutor {
 	}
 	
 	
+	/*
 	public void executeDeleteAll() {
 		
 		//adds listener to form's delete button

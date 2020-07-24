@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import buttonhandler.MovieButtonExecutor;
 import data.DataHandler;
 import data.DataManager;
+import data.ResultsConverter;
 import guicomponents.SplitDisplay;
 import guicomponents.MovieForm;
 import guicomponents.MovieFormPanel;
@@ -30,6 +31,7 @@ public class MainFrame extends JFrame{
 	DataHandler dh = new DataHandler(dm);
 	MovieButtonExecutor mbe = new MovieButtonExecutor(form, dh);
 	ResultSet allRecords;
+	ResultsConverter rc = new ResultsConverter(); 
 	
 	
 	private void setWindow() {
@@ -73,8 +75,9 @@ public class MainFrame extends JFrame{
 				
 				//activate add button execution
 				mbe.executeAdd();
+				mbe.executeDelete();
 				
-				
+				int rows = 0;
 				//get results of all query
 				try {
 					allRecords = dh.getAllRecords();
@@ -82,20 +85,43 @@ public class MainFrame extends JFrame{
 						System.out.print(allRecords.getString(2));
 						System.out.print(allRecords.getString(3));
 						System.out.println();
+						rows++;
 					}
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
+				System.out.println(rows);
+				try {
+					ResultsConverter.resultsToArray(allRecords);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
+			//create results converter with given results, set columns
+
+
+			//method that will convert a result set into a 2d array
+			/*
+			try {
+				Object[][] newTableArray = rc.resultsToArray(allRecords);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-				
+			*/
 			
-				
-				
-				
-				
+			/*be able to print the number of rows
+			try {
+				rc.resultsToArray(allRecords);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			*/	
 				
 	}
 }

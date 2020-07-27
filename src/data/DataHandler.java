@@ -25,6 +25,10 @@ public class DataHandler {
 		this.dm = dm; 
 	}
 	
+	
+		
+	
+	
 		//method that adds a movie to the database (needs to check for connection)
 		public void addMovie(String movieName, String movieGenre) throws SQLException, ClassNotFoundException {
 		
@@ -44,7 +48,7 @@ public class DataHandler {
 				this.dm.getConn().close();
 				this.dm.setConn(nullconn);
 				}	
-		}
+		}	
 		
 		
 		//method that deletes a movie to the database (needs to check for connection)
@@ -68,18 +72,26 @@ public class DataHandler {
 		}
 		
 		//method that will delete all records (USED AS TESTING, NO FINAL CODE). 
-		public void deleteAllRecords(boolean deleteConfirmation) throws SQLException {
+		public void deleteAllRecords(boolean deleteConfirmation) throws SQLException, ClassNotFoundException {
 			
-			if(deleteConfirmation == true) {
-				//delete all records
-				Statement deleteAllRecords = this.dm.getConn().createStatement();
-				deleteAllRecords.executeUpdate("DELETE FROM movies");	
-				
-				if(this.dm.getConn()!= null) {
-					this.dm.getConn().close();
-					this.dm.setConn(nullconn);
-					}	
+			//check connection
+			if(this.dm.getConn() == null) {
+				dm.getConnection();
 			}
+			
+			//delete all records
+			Statement deleteAllRecords = this.dm.getConn().createStatement();
+			
+			//if confirmed, execute the deletion and close the connection
+			if(deleteConfirmation == true) {
+				
+				deleteAllRecords.executeUpdate("DELETE FROM movies");	
+			}
+			
+			if(this.dm.getConn()!= null) {
+				this.dm.getConn().close();
+				this.dm.setConn(nullconn);
+				}	
 		}
 		
 	
@@ -106,10 +118,26 @@ public class DataHandler {
 		}
 		
 		
-		//method that will count number of rows
-		public int countNumberOfRows(ResultSet results) {
-			int rows; 
+		//method that will count number of rows, using an SQL count aggregate function
+		public int countNumberOfRows(ResultSet results) throws SQLException, ClassNotFoundException {	
 			
+			//check connection
+			if(this.dm.getConn() == null) {
+				dm.getConnection();
+			}
+			
+			//execute query and grab results
+			Statement statement = this.dm.getConn().createStatement(); 
+			ResultSet count = statement.executeQuery("SELECT COUNT(*) FROM movies;");
+			
+			//get the row count and return it
+			int rows = count.getInt(1); 
+			
+			//close connection if connection not null i.e. open, set's dm connection back to null
+			if(this.dm.getConn()!= null) {
+				this.dm.getConn().close();
+				this.dm.setConn(nullconn);
+				}
 			
 			
 			return rows; 

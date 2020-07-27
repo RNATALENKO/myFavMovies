@@ -66,62 +66,39 @@ public class MainFrame extends JFrame{
 				//add content panel
 				add(contentPanel);
 				
-				
-				
+
 				//first make sure values are being passed in
 				System.out.println(form.getGenreField().getText());
 				
 				
 				
-				//activate add button execution
+				//activate add, delete, delete all button execution
 				mbe.executeAdd();
 				mbe.executeDelete();
+				mbe.executeDeleteAll();
 				
-				int rows = 0;
-				//get results of all query
+				
+				
+				//test row count and 2d array conversion method
+				
 				try {
 					allRecords = dh.getAllRecords();
 					while(allRecords.next()) {
 						System.out.print(allRecords.getString(2));
 						System.out.print(allRecords.getString(3));
 						System.out.println();
-						rows++;
 					}
+					System.out.println(dh.countNumberOfRows(allRecords));
+					
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+	
 				
-				System.out.println(rows);
-				try {
-					ResultsConverter.resultsToArray(allRecords);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				
 			//create results converter with given results, set columns
 
-
-			//method that will convert a result set into a 2d array
-			/*
-			try {
-				Object[][] newTableArray = rc.resultsToArray(allRecords);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			*/
-			
-			/*be able to print the number of rows
-			try {
-				rc.resultsToArray(allRecords);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			*/	
 				
 	}
 }

@@ -62,17 +62,11 @@ public class MovieButtonExecutor {
 					e1.printStackTrace();
 				}
 				
-				
-				
-				
 				//print the form values 
 				//just to check what's being added
 				System.out.println(form.getMovieNameField().getText());
 				System.out.println(form.getGenreField().getText());
-				
-				
-				
-				
+
 			}
 			
 		});
@@ -98,7 +92,7 @@ public class MovieButtonExecutor {
 	}
 	
 	
-	/*
+	
 	public void executeDeleteAll() {
 		
 		//adds listener to form's delete button
@@ -123,15 +117,15 @@ public class MovieButtonExecutor {
 				//perform the delete movie
 				try {
 					dataHandler.deleteAllRecords(deleteConfirmation);
-				} catch (SQLException e1) {
+				} catch (SQLException | ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
 				
+				
 				//need method that updates JTable
 			}
 		});
-		*/
 	}
-
+}

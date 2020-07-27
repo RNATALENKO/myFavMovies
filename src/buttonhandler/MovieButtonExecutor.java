@@ -2,6 +2,7 @@ package buttonhandler;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
@@ -62,15 +63,20 @@ public class MovieButtonExecutor {
 					e1.printStackTrace();
 				}
 				
-				//print the form values 
-				//just to check what's being added
-				System.out.println(form.getMovieNameField().getText());
-				System.out.println(form.getGenreField().getText());
+				
+				//print values of table and print row count when we add a movie
+				try {
+					ResultSet results = dataHandler.getAllRecords();
+					dataHandler.printResults(results);
+					System.out.println(dataHandler.countNumberOfRows(results));	
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			}
 			
 		});
-		
 	}
 	
 	

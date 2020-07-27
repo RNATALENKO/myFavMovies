@@ -25,10 +25,6 @@ public class DataHandler {
 		this.dm = dm; 
 	}
 	
-	
-		
-	
-	
 		//method that adds a movie to the database (needs to check for connection)
 		public void addMovie(String movieName, String movieGenre) throws SQLException, ClassNotFoundException {
 		
@@ -44,12 +40,9 @@ public class DataHandler {
 			addQuery.executeUpdate();
 			
 			//close connection if connection not null i.e. open, set's dm connection back to null
-			if(this.dm.getConn()!= null) {
-				this.dm.getConn().close();
-				this.dm.setConn(nullconn);
-				}	
+			this.setConnectionToNull();
+			
 		}	
-		
 		
 		//method that deletes a movie to the database (needs to check for connection)
 		public void deleteMovie(String movieName) throws SQLException, ClassNotFoundException {
@@ -64,11 +57,8 @@ public class DataHandler {
 			deleteQuery.setString(1, movieName);
 			deleteQuery.executeUpdate();
 			
-			if(this.dm.getConn()!= null) {
-				this.dm.getConn().close();
-				this.dm.setConn(nullconn);
-				}	
-		
+			//close connection set dm object connection to null
+			this.setConnectionToNull();
 		}
 		
 		//method that will delete all records (USED AS TESTING, NO FINAL CODE). 
@@ -87,11 +77,8 @@ public class DataHandler {
 				
 				deleteAllRecords.executeUpdate("DELETE FROM movies");	
 			}
-			
-			if(this.dm.getConn()!= null) {
-				this.dm.getConn().close();
-				this.dm.setConn(nullconn);
-				}	
+			//close connection set dm object connection to null
+			this.setConnectionToNull();
 		}
 		
 	
@@ -106,13 +93,6 @@ public class DataHandler {
 			//statement to get all columns from query
 			Statement queryAllData = this.dm.getConn().createStatement();
 			ResultSet allData = queryAllData.executeQuery("SELECT * FROM movies");
-			
-			/* this code does not work here for some reason
-			if(this.dm.getConn()!= null) {
-				this.dm.getConn().close();
-				this.dm.setConn(nullconn);
-				}	
-			*/
 			
 			return allData; 
 		}
@@ -133,12 +113,8 @@ public class DataHandler {
 			//get the row count and return it
 			int rows = count.getInt(1); 
 			
-			//close connection if connection not null i.e. open, set's dm connection back to null
-			if(this.dm.getConn()!= null) {
-				this.dm.getConn().close();
-				this.dm.setConn(nullconn);
-				}
-			
+			//close connection set dm object connection to null
+			this.setConnectionToNull();
 			
 			return rows; 
 		}
@@ -150,5 +126,24 @@ public class DataHandler {
 			
 		}
 		*/
-
+		
+		//method that checks if connection still open, closes it, then sets dm connection object to null
+		private void setConnectionToNull() throws SQLException {
+			
+			//check and set to null
+			if(this.dm.getConn()!= null) {
+				this.dm.getConn().close();
+				this.dm.setConn(nullconn);
+				}
+		}	
+		
+		//method that will print results for all columns
+		public void printResults(ResultSet results) throws SQLException {
+			while(results.next()) {
+				System.out.print(" " + results.getString(1));
+				System.out.print(" " + results.getString(2));
+				System.out.print(" " + results.getString(3));
+				
+			}
+		}
 }

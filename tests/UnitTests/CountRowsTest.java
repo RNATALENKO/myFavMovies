@@ -8,9 +8,11 @@ import java.sql.SQLException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.After;
 
 import data.DataHandler;
 import data.DataManager;
+
 
 public class CountRowsTest {
 
@@ -59,5 +61,12 @@ public class CountRowsTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+	
+	//destroy the objects after each test run
+	@After
+	public void destroy() {
+		dh = null;
+		dm = null; 
 	}
 }

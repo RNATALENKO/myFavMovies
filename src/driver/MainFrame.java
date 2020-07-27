@@ -78,26 +78,7 @@ public class MainFrame extends JFrame{
 				mbe.executeDeleteAll();
 				
 				
-				
-				//test row count and 2d array conversion method
-				
-				try {
-					allRecords = dh.getAllRecords();
-					while(allRecords.next()) {
-						System.out.print(allRecords.getString(2));
-						System.out.print(allRecords.getString(3));
-						System.out.println();
-					}
-					System.out.println(dh.countNumberOfRows(allRecords));
-					
-				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	
-				
-				
-			//create results converter with given results, set columns
+				//create results converter with given results, set columns
 
 				
 	}

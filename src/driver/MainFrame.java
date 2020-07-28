@@ -30,8 +30,6 @@ public class MainFrame extends JFrame{
 	DataManager dm = new DataManager();
 	DataHandler dh = new DataHandler(dm);
 	MovieButtonExecutor mbe = new MovieButtonExecutor(form, dh);
-	ResultSet allRecords;
-	ResultsConverter rc = new ResultsConverter(); 
 	
 	
 	private void setWindow() {
@@ -65,21 +63,51 @@ public class MainFrame extends JFrame{
 				
 				//add content panel
 				add(contentPanel);
-				
 
-				//first make sure values are being passed in
-				System.out.println(form.getGenreField().getText());
 				
 				
 				
 				//activate add, delete, delete all button execution
+				
 				mbe.executeAdd();
 				mbe.executeDelete();
 				mbe.executeDeleteAll();
 				
 				
-				//create results converter with given results, set columns
-
+				
+				
+				//test the conversion
+				try {
+					//allRecords = dh.getAllRecords();
+					ResultSet allRecords = dh.getAllRecords();
+					
+					//print database info
+					dh.printDatabaseInfo();
+					
+					
+					/* need to fix results converter method, since it's not properly storing values in the correct index*/
+					//convert result set to 2d array
+					String[][] myString = ResultsConverter.convertToArray(allRecords, dh);
+					
+					
+					
+					//print the 2d array
+					for(int x= 0; x < dh.countNumberOfRows(allRecords); x++) {
+						
+						for(int y = 0; y < 3; y++) {
+							System.out.println(myString[x][y] + " " );
+						}
+					}
+					
+				
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			
+			
 				
 	}
 }

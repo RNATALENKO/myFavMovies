@@ -18,7 +18,7 @@ import java.sql.Statement;
 public class DataHandler {
 	
 	private DataManager dm;
-	private Connection nullconn = null;
+	private final Connection nullconn = null;
 	
 	//constructor takes dm object and sets it to dm
 	public DataHandler(DataManager dm){
@@ -94,6 +94,9 @@ public class DataHandler {
 			Statement queryAllData = this.dm.getConn().createStatement();
 			ResultSet allData = queryAllData.executeQuery("SELECT * FROM movies");
 			
+			//note that if you close this connection the results get closed, 
+			//if results are closed, you cannot access it's values and you get an sql error thrown
+			
 			return allData; 
 		}
 		
@@ -113,22 +116,12 @@ public class DataHandler {
 			//get the row count and return it
 			int rows = count.getInt(1); 
 			
-			//close connection set dm object connection to null
-			this.setConnectionToNull();
-			
 			return rows; 
 		}
 		
 		
-		/*
-		//method that will close connection and reset after it's null
-		public void resetConnectionToNull() {
-			
-		}
-		*/
-		
 		//method that checks if connection still open, closes it, then sets dm connection object to null
-		private void setConnectionToNull() throws SQLException {
+		public void setConnectionToNull() throws SQLException {
 			
 			//check and set to null
 			if(this.dm.getConn()!= null) {
@@ -138,12 +131,31 @@ public class DataHandler {
 		}	
 		
 		//method that will print results for all columns
-		public void printResults(ResultSet results) throws SQLException {
+		public void printResults(ResultSet results) throws SQLException, ClassNotFoundException {
+			
+			System.out.println("database info: [");
 			while(results.next()) {
 				System.out.print(" " + results.getString(1));
 				System.out.print(" " + results.getString(2));
 				System.out.print(" " + results.getString(3));
-				
+				System.out.println();
+			}
+			System.out.println("]");
+		}
+		
+		
+		public void printDatabaseInfo() {
+			//print values of table and print row count when we add a movie
+			try {
+				ResultSet results = this.getAllRecords();
+				this.printResults(results);
+				System.out.println("rowcount: " + this.countNumberOfRows(results));	
+				System.out.println();
+			} catch (ClassNotFoundException | SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
 			}
 		}
+		
+		
 }

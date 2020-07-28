@@ -3,28 +3,45 @@ package data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//this class will convert a resultset into a 2d array which will then be passed into the JTable to display results.
 public class ResultsConverter {
 	
-	public static void resultsToArray(ResultSet res) throws SQLException {
-		//int numOfColumns = res.getMetaData().getColumnCount();
-		int numOfRows = 0; 
-		//Object[][] resultsArray = new Object[numOfRows][numOfColumns];
+	public static String[][] convertToArray(ResultSet results, DataHandler dh) throws SQLException {
+
+		int rows = 0; 
+		int columns = 0; 
+		String[][] array = null;
+		int rowIndex = 0; 
+		int columnIndex = 1; 
 		
+		try {
+			rows = dh.countNumberOfRows(results);
+			columns = results.getMetaData().getColumnCount();
+			array = new String[rows][columns];
 		
-		//count number of rows
-		while(res.next()) {
-			numOfRows++;
+			System.out.println(String.format("rows: %s", Integer.toString(rows)));
+			System.out.println(String.format("colums: %s", Integer.toString(columns)));
+			
+			while(results.next()) {
+				
+				for(int x = 0; x < columns; x++) {
+					array[rowIndex][columnIndex] = results.getString(columnIndex);
+				}
+				
+				rowIndex++; 
+				columnIndex++; 
+			}
+			
+		
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		System.out.println(numOfRows);
 		
+		return array; 
 		
-		
-		//return resultsArray;
 	}
 	
+	
+
 }
-
-
-

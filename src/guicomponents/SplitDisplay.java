@@ -30,14 +30,15 @@ public class SplitDisplay extends JSplitPane {
 	JScrollPane scroll;
 	
 	String[] columnNames = {
+			"ID",
 			"Movie Name",
 			"Genre"	
 	};
 	
 	String[][] fillerData = {
-			{"Tarzan", "Adventure"},
-			{"Batman Begins", "Action"},
-			{"Tarzan", "Adventure"}
+			{"1", "Tarzan", "Adventure"},
+			{"2", "Batman Begins", "Action"},
+			{"3", "Tarzan", "Adventure"}
 	};
 	
 	

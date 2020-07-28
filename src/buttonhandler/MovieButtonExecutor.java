@@ -63,17 +63,8 @@ public class MovieButtonExecutor {
 					e1.printStackTrace();
 				}
 				
-				
 				//print values of table and print row count when we add a movie
-				try {
-					ResultSet results = dataHandler.getAllRecords();
-					dataHandler.printResults(results);
-					System.out.println(dataHandler.countNumberOfRows(results));	
-				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
+				dataHandler.printDatabaseInfo();
 			}
 			
 		});
@@ -92,6 +83,8 @@ public class MovieButtonExecutor {
 					e1.printStackTrace();
 				}
 				
+				//print values of table and print row count when we add a movie
+				dataHandler.printDatabaseInfo();
 			}
 			
 		});
@@ -128,6 +121,8 @@ public class MovieButtonExecutor {
 					e1.printStackTrace();
 				}
 				
+				//print values of table and print row count when we add a movie
+				dataHandler.printDatabaseInfo();
 				
 				
 				//need method that updates JTable

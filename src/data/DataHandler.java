@@ -11,6 +11,9 @@ import java.sql.Statement;
 /*
  * note: can move close connection to a method
  * 
+ * try these solutions for a locked sql database:
+ * https://stackoverflow.com/questions/42348862/sqlite-is-busy-database-is-locked
+ * 
  */
 
 
@@ -56,10 +59,12 @@ public class DataHandler {
 			PreparedStatement deleteQuery = this.dm.getConn().prepareStatement("DELETE FROM movies WHERE name =?");
 			deleteQuery.setString(1, movieName);
 			deleteQuery.executeUpdate();
+			deleteQuery.close();
 			
 			//close connection set dm object connection to null
 			this.setConnectionToNull();
 		}
+		
 		
 		//method that will delete all records (USED AS TESTING, NO FINAL CODE). 
 		public void deleteAllRecords(boolean deleteConfirmation) throws SQLException, ClassNotFoundException {

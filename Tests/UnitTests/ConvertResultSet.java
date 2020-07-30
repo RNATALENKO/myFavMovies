@@ -12,6 +12,7 @@ import org.junit.After;
 
 import data.DataHandler;
 import data.DataManager;
+import data.ResultsConverter;
 
 
 public class ConvertResultSet {
@@ -21,25 +22,18 @@ public class ConvertResultSet {
 	ResultSet allRecords; 
 	int count = 0; 
 	
-	//set up a connection and data classes before each test, get all records, print all records
+
+	//create objects, get records, print what's in current database
 	@Before
 	public void setup() {
 		dm = new DataManager(); 
 		dh = new DataHandler(dm); 
 		
-		
 		//gets records, prints database info
 		try {
 			allRecords = dh.getAllRecords();
-			while(allRecords.next()) {
-				System.out.print(allRecords.getString(1) + " ");
-				System.out.print(allRecords.getString(2) + " "); 
-				System.out.print(allRecords.getString(3));
-				System.out.println();
-				count++;
-			}
 			
-			System.out.println(String.format("Count: %s", count));
+			dh.printDatabaseInfo();
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -50,30 +44,34 @@ public class ConvertResultSet {
 	@Test
 	public void test() {
 		
+		try {
+			
+			//allRecords = dh.getAllRecords();
+			ResultSet allRecords = dh.getAllRecords();
 		
-		
-		
-		
-		
-		
+			//need to fix results converter method, since it's not properly storing values in the correct index
+			//convert result set to 2d array
+			String[][] myString = ResultsConverter.convertToArray(allRecords, dh);
+			
+			
+			//print the 2d array values
+			for(int x= 0; x < dh.countNumberOfRows(allRecords); x++) {
+				
+				for(int y = 0; y < 3; y++) {
+					System.out.print(myString[x][y] + " " );
+				}
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-	
-	
-	
-	
 
 	//the objects after each test run
 	@After
 	public void destroy() {
 		dh = null;
 		dm = null; 
-		try {
-			dh.setConnectionToNull();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 }

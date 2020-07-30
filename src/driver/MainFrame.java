@@ -2,6 +2,7 @@ package driver;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -67,6 +68,7 @@ public class MainFrame extends JFrame{
 				
 				
 				
+				
 				//activate add, delete, delete all button execution
 				
 				mbe.executeAdd();
@@ -75,36 +77,7 @@ public class MainFrame extends JFrame{
 				
 				
 				
-				
-				//test the conversion
-				try {
-					//allRecords = dh.getAllRecords();
-					ResultSet allRecords = dh.getAllRecords();
-					
-					//print database info
-					dh.printDatabaseInfo();
-					
-					
-					/* need to fix results converter method, since it's not properly storing values in the correct index*/
-					//convert result set to 2d array
-					String[][] myString = ResultsConverter.convertToArray(allRecords, dh);
-					
-					
-					
-					//print the 2d array
-					for(int x= 0; x < dh.countNumberOfRows(allRecords); x++) {
-						
-						for(int y = 0; y < 3; y++) {
-							System.out.println(myString[x][y] + " " );
-						}
-					}
-					
-				
-				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+		
 				
 			
 			

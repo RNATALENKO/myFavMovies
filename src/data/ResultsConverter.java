@@ -16,7 +16,8 @@ public class ResultsConverter {
 		int currentColumn = 1; 
 		
 		try {
-			rows = dh.countNumberOfRows(results);
+			
+			rows = dh.countNumberOfRows();
 			columns = results.getMetaData().getColumnCount();
 			array = new String[rows][columns];
 		

@@ -123,9 +123,9 @@ public class MovieButtonExecutor {
 				
 				//print values of table and print row count when we add a movie
 				dataHandler.printDatabaseInfo();
-				
-				
+			
 				//need method that updates JTable
+				
 			}
 		});
 	}

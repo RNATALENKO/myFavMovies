@@ -55,7 +55,7 @@ public class ConvertResultSet {
 			
 			
 			//print the 2d array values
-			for(int x= 0; x < dh.countNumberOfRows(allRecords); x++) {
+			for(int x= 0; x < dh.countNumberOfRows(); x++) {
 				
 				for(int y = 0; y < 3; y++) {
 					System.out.print(myString[x][y] + " " );

@@ -52,10 +52,10 @@ public class CountRowTest {
 		
 		try {
 			//count columns should return 2
-			dh.countNumberOfRows(allRecords);
+			dh.countNumberOfRows();
 			
 			double expected = count; 
-			double actual = dh.countNumberOfRows(allRecords);
+			double actual = dh.countNumberOfRows();
 			double delta = 0; 
 			
 			//asserts there's no difference between number of columns and what the count method outputs

@@ -3,6 +3,7 @@ package data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -13,6 +14,9 @@ import java.sql.Statement;
  * 
  * try these solutions for a locked sql database:
  * https://stackoverflow.com/questions/42348862/sqlite-is-busy-database-is-locked
+ * 
+ * gets locked when multiple connections are open or operations on the same connection i.e. close the programs that were left open from previus runs
+ * which most likely reference the same connection or have multiple connections trying to perform something. 
  * 
  */
 
@@ -41,6 +45,7 @@ public class DataHandler {
 			addQuery.setString(1, movieName);
 			addQuery.setString(2, movieGenre);
 			addQuery.executeUpdate();
+			addQuery.close();
 			
 			//close connection if connection not null i.e. open, set's dm connection back to null
 			this.setConnectionToNull();
@@ -81,6 +86,7 @@ public class DataHandler {
 			if(deleteConfirmation == true) {
 				
 				deleteAllRecords.executeUpdate("DELETE FROM movies");	
+				deleteAllRecords.close();
 			}
 			//close connection set dm object connection to null
 			this.setConnectionToNull();
@@ -99,6 +105,7 @@ public class DataHandler {
 			Statement queryAllData = this.dm.getConn().createStatement();
 			ResultSet allData = queryAllData.executeQuery("SELECT * FROM movies");
 			
+			
 			//note that if you close this connection the results get closed, 
 			//if results are closed, you cannot access it's values and you get an sql error thrown
 			
@@ -107,7 +114,7 @@ public class DataHandler {
 		
 		
 		//method that will count number of rows, using an SQL count aggregate function
-		public int countNumberOfRows(ResultSet results) throws SQLException, ClassNotFoundException {	
+		public int countNumberOfRows() throws SQLException, ClassNotFoundException {	
 			
 			//check connection
 			if(this.dm.getConn() == null) {
@@ -154,12 +161,52 @@ public class DataHandler {
 			try {
 				ResultSet results = this.getAllRecords();
 				this.printResults(results);
-				System.out.println("rowcount: " + this.countNumberOfRows(results));	
+				System.out.println(String.format("rowcount: %s", this.countNumberOfRows()));	
+				System.out.println(String.format("columncount: %s", this.countNumOfColumns()));
 				System.out.println();
+				
 			} catch (ClassNotFoundException | SQLException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
+		}
+		
+		
+		//method that counts columns
+		public int countNumOfColumns() throws SQLException, ClassNotFoundException {
+			
+			//check connection
+			if(this.dm.getConn() == null) {
+				dm.getConnection();
+			}
+			
+			//execute query and grab results
+			Statement statement = this.dm.getConn().createStatement(); 
+			ResultSet count = statement.executeQuery("SELECT * FROM movies;");
+			
+			//get the row count and return it
+			ResultSetMetaData rsmd = count.getMetaData();
+			int columns = rsmd.getColumnCount();
+			
+			return columns;  
+		}
+		
+		
+		//method that returns columns names as string array
+		public String[] getColumnNames(int columncount, ResultSet results) throws SQLException {
+			
+			int columnIndex = 1; 
+			
+			String[] columnNames = new String[columncount];
+			
+			ResultSetMetaData metaData = results.getMetaData();
+			
+			for(int x = 0; x < columncount; x++) {
+				columnNames[x] = metaData.getColumnName(columnIndex);
+				columnIndex++;
+			}
+			
+			return columnNames; 	
 		}
 		
 		

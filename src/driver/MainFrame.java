@@ -27,10 +27,11 @@ public class MainFrame extends JFrame{
 	//list of main component objects
 	MovieForm form = new MovieForm(); 
 	MovieFormPanel movieFormPanel = new MovieFormPanel(); 
-	SplitDisplay displayPanel = new SplitDisplay(); 
+	
 	DataManager dm = new DataManager();
 	DataHandler dh = new DataHandler(dm);
 	MovieButtonExecutor mbe = new MovieButtonExecutor(form, dh);
+	SplitDisplay displayPanel = new SplitDisplay(dh);
 	
 	
 	private void setWindow() {
@@ -42,7 +43,7 @@ public class MainFrame extends JFrame{
 		this.setResizable(false);
 	}
 	
-	public MainFrame() {
+	public MainFrame() throws SQLException {
 		
 				setWindow();
 	
@@ -67,16 +68,14 @@ public class MainFrame extends JFrame{
 
 				
 				
-				
-				
 				//activate add, delete, delete all button execution
-				
 				mbe.executeAdd();
 				mbe.executeDelete();
 				mbe.executeDeleteAll();
 				
 				
-				
+			
+				//set the Jtabel data and columns
 		
 				
 			

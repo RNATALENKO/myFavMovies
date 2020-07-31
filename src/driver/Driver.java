@@ -31,7 +31,6 @@ public class Driver {
 		
 		new MainFrame(); 
 		
-
 	}
 
 }

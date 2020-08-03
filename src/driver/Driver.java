@@ -22,6 +22,12 @@ import guicomponents.MovieFormPanel;
  * also check if record doesn't exist, if it doesn't cannot delete
  * also check if there's any record at all, if there's none, no records
  * 
+ * 
+ * Need to: create it as one instance, so the sql database doesn't get locked
+ * https://stackoverflow.com/questions/177189/how-to-implement-a-single-instance-java-application
+ * 
+ * Then finally deploy the application, let friends test it, get feedback
+ * 
  */
 
 

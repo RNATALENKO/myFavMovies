@@ -2,6 +2,7 @@ package guicomponents;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.SQLException;
 import java.util.Enumeration;
 
 import javax.swing.JLabel;
@@ -14,9 +15,11 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import data.DataHandler;
 import data.DataManager;
+import data.ResultsConverter;
 import driver.MainFrame;
 import interfaces.Panel;
 
@@ -39,48 +42,55 @@ public class SplitDisplay extends JSplitPane {
 	
 	
 	private String[][] data; 
+	private String[] columnNames;
 	
 	//set the data
-	public void setData(String[][] data) {
-		this.data = data; 
+	private void setData() throws ClassNotFoundException, SQLException {
+		this.data = ResultsConverter.convertToArray(dh.getAllRecords(), dh);
 	}
 	
 	public String[][] getData() {
 		return data; 
 	}
 	
-	//constructor sets scroll pane on table
+	private void setColumnNames() throws ClassNotFoundException, SQLException {
+		this.columnNames = dh.getColumnNames(dh.countNumOfColumns(), dh.getAllRecords());
+	}
+	
+	public String[] getColumnNames() {
+		return columnNames; 
+	}
+	
+	//constructor sets scroll pane on table, sets initial table data from dh
 	public SplitDisplay(DataHandler dh) {
-		this.dh = dh; 
-		this.scroll = new JScrollPane(this.movieTable);
-	}
-	
-	
-	//pass in data and columnnames and set movie table component
-	public void setTable(String[][] data, String[] columnNames) {
+		this.dh = dh;
+		
+		try {
+			setData();
+			setColumnNames();
+		} catch (ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		
 		//disables editable cells, pass in data and columns
-		movieTable = new JTable(data, columnNames) {
+		movieTable = new JTable(new DefaultTableModel(this.data, this.columnNames)) {
 		public boolean editCellAt(int row, int col, java.util.EventObject e) {
-		           return false; //make cells non-editable
-		        }
+				      return false; //make cells non-editable
+				 }
 		};
+
+		this.scroll = new JScrollPane(this.movieTable);	
+	}
+	
+	
+	public JTable getMovieTable() {
+		return movieTable; 
 	}
 	
 	
 	
-	
-	
-	//method that takes in a new 2d string and updates the table with the new datatable
-	//review: https://stackoverflow.com/questions/3179136/jtable-how-to-refresh-table-model-after-insert-delete-or-update-the-data
-	public void updateTableData(String[][] newData, String[][] columnNames) {
-		
-		
-		
-		
-	}
-	
-	
-	
+
 	public void setPane() {
 		this.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		this.setTopComponent(TableLabel);

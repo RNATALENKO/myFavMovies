@@ -113,6 +113,33 @@ public class DataHandler {
 		}
 		
 		
+		
+		//method that will get the Id based on movie name
+		public int getId(String movieName) throws ClassNotFoundException, SQLException {
+			
+			//check connection
+			if(this.dm.getConn() == null) {
+				dm.getConnection();
+			}
+			
+			//execute a query from the database to get the result of the movie name
+			PreparedStatement prep = this.dm.getConn().prepareStatement("SELECT id FROM movies WHERE name=?");
+			prep.setString(1, movieName);
+			
+			ResultSet results = prep.executeQuery();
+			
+			int id = results.getInt("id");
+			
+			return id; 
+			
+		}
+		
+		
+		
+		
+		
+		
+		
 		//method that will count number of rows, using an SQL count aggregate function
 		public int countNumberOfRows() throws SQLException, ClassNotFoundException {	
 			
@@ -208,6 +235,8 @@ public class DataHandler {
 			
 			return columnNames; 	
 		}
+		
+		 
 		
 		
 }

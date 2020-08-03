@@ -10,22 +10,25 @@ import javax.swing.JOptionPane;
 
 import data.DataHandler;
 import guicomponents.MovieForm;
+import tablehandler.TableHandler;
 
 //handles all button executions and logic
-
+//this class will also handle updating the Jtable when a row is added, deleted, or entire JTable is deleted
 
 //these buttons need validation for empty fields, if they're empty then don't execute
 
 public class MovieButtonExecutor {
 	
 	private MovieForm form;
-	private DataHandler dataHandler; 
+	private DataHandler dh; 
+	private TableHandler th; 
 	
 	
 	//constructor, takes in a form and datahandler
-	public MovieButtonExecutor(MovieForm form, DataHandler handler) {
+	public MovieButtonExecutor(MovieForm form, DataHandler handler, TableHandler th) {
 		this.form = form; 
-		this.dataHandler = handler; 
+		this.dh = handler; 
+		this.th = th; 
 	}
 	
 	public MovieForm getForm() {
@@ -37,14 +40,22 @@ public class MovieButtonExecutor {
 	}
 
 	public DataHandler getDataHandler() {
-		return dataHandler;
+		return dh;
 	}
 
 	public void setDataHandler(DataHandler dataHandler) {
-		this.dataHandler = dataHandler;
+		this.dh = dataHandler;
 	}
 	
 	
+	public TableHandler getTableHandler() {
+		return th;
+	}
+
+	public void setTableHandler(TableHandler tableHandler) {
+		this.th = tableHandler;
+	}
+
 	public void executeAdd() {
 		
 		form.getAddButton().addActionListener(new ActionListener() {
@@ -52,9 +63,10 @@ public class MovieButtonExecutor {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				
 				//adds a movie to database
 				try {
-					dataHandler.addMovie(form.getMovieNameField().getText(), form.getGenreField().getText());
+					dh.addMovie(form.getMovieNameField().getText(), form.getGenreField().getText());
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -64,7 +76,15 @@ public class MovieButtonExecutor {
 				}
 				
 				//print values of table and print row count when we add a movie
-				dataHandler.printDatabaseInfo();
+				dh.printDatabaseInfo();
+				
+				
+				//logic to update the Jtable
+				
+				//string movieId = dh.getId(form.getMovieNameField().getText());
+				//String[] row = {movieId, form.getMovieNameField().getText(), form.getGenreField().getText()};
+				//th.addRow(row);
+				
 			}
 			
 		});
@@ -77,14 +97,14 @@ public class MovieButtonExecutor {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					dataHandler.deleteMovie(form.getMovieNameField().getText());
+					dh.deleteMovie(form.getMovieNameField().getText());
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
 				//print values of table and print row count when we add a movie
-				dataHandler.printDatabaseInfo();
+				dh.printDatabaseInfo();
 			}
 			
 		});
@@ -115,14 +135,14 @@ public class MovieButtonExecutor {
 				
 				//perform the delete movie
 				try {
-					dataHandler.deleteAllRecords(deleteConfirmation);
+					dh.deleteAllRecords(deleteConfirmation);
 				} catch (SQLException | ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
 				//print values of table and print row count when we add a movie
-				dataHandler.printDatabaseInfo();
+				dh.printDatabaseInfo();
 			
 				//need method that updates JTable
 				

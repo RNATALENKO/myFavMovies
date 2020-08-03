@@ -1,10 +1,6 @@
 package driver;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,8 +8,8 @@ import javax.swing.JPanel;
 import buttonhandler.MovieButtonExecutor;
 import data.DataHandler;
 import data.DataManager;
-import data.ResultsConverter;
 import guicomponents.SplitDisplay;
+import tablehandler.TableHandler;
 import guicomponents.MovieForm;
 import guicomponents.MovieFormPanel;
 
@@ -27,11 +23,14 @@ public class MainFrame extends JFrame{
 	//list of main component objects
 	MovieForm form = new MovieForm(); 
 	MovieFormPanel movieFormPanel = new MovieFormPanel(); 
-	
 	DataManager dm = new DataManager();
 	DataHandler dh = new DataHandler(dm);
-	MovieButtonExecutor mbe = new MovieButtonExecutor(form, dh);
-	SplitDisplay displayPanel = new SplitDisplay(dh);
+	SplitDisplay sd = new SplitDisplay(dh);
+	TableHandler th = new TableHandler(sd); 
+	MovieButtonExecutor mbe = new MovieButtonExecutor(form, dh, th);
+	
+	
+	
 	
 	
 	private void setWindow() {
@@ -43,7 +42,7 @@ public class MainFrame extends JFrame{
 		this.setResizable(false);
 	}
 	
-	public MainFrame() throws SQLException {
+	public MainFrame() {
 		
 				setWindow();
 	
@@ -59,14 +58,16 @@ public class MainFrame extends JFrame{
 				movieFormPanel.setGridBag(form);
 				contentPanel.add(movieFormPanel);
 				
-				//add the display panel
-				displayPanel.setPane();
-				contentPanel.add(displayPanel);
+				//add the split display (which contains table data and movie form)
+				sd.setPane();
+				contentPanel.add(sd);
 				
 				//add content panel
 				add(contentPanel);
-
 				
+				
+				
+
 				
 				//activate add, delete, delete all button execution
 				mbe.executeAdd();

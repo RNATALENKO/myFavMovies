@@ -14,8 +14,11 @@ import tablehandler.TableHandler;
 
 //handles all button executions and logic
 //this class will also handle updating the Jtable when a row is added, deleted, or entire JTable is deleted
+//this class will also add delete or remove records simultaneously from the sqllite database
 
 //these buttons need validation for empty fields, if they're empty then don't execute
+
+//note you can refactor the movieId into a method and set it
 
 public class MovieButtonExecutor {
 	
@@ -24,6 +27,7 @@ public class MovieButtonExecutor {
 	private TableHandler th; 
 	
 	private String movieId;
+	private int row;
 	
 	
 	//constructor, takes in a form and datahandler
@@ -117,6 +121,12 @@ public class MovieButtonExecutor {
 				
 				//print values of table and print row count when we add a movie
 				dh.printDatabaseInfo();
+				
+				
+				//logic to remove movie row from the Jtable
+				th.deleteRow(th.getRow(form.getMovieNameField().getText()));
+				
+				
 			}
 			
 		});

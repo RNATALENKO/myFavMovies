@@ -23,6 +23,8 @@ public class MovieButtonExecutor {
 	private DataHandler dh; 
 	private TableHandler th; 
 	
+	private String movieId;
+	
 	
 	//constructor, takes in a form and datahandler
 	public MovieButtonExecutor(MovieForm form, DataHandler handler, TableHandler th) {
@@ -81,9 +83,19 @@ public class MovieButtonExecutor {
 				
 				//logic to update the Jtable
 				
-				//string movieId = dh.getId(form.getMovieNameField().getText());
-				//String[] row = {movieId, form.getMovieNameField().getText(), form.getGenreField().getText()};
-				//th.addRow(row);
+				//get movie ID given movie name from form input field
+				try {
+					movieId = Integer.toString(dh.getId(form.getMovieNameField().getText()));
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	
+				String[] row = {movieId, form.getMovieNameField().getText(), form.getGenreField().getText()};
+				th.addRow(row);
 				
 			}
 			

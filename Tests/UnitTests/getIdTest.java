@@ -28,7 +28,6 @@ public class getIdTest {
 		
 			dh.printDatabaseInfo();
 			
-			
 			try {
 				int Expected = 1; 
 				int actual = dh.getId("Tarzan");

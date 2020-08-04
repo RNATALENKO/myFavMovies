@@ -124,7 +124,12 @@ public class MovieButtonExecutor {
 				
 				
 				//logic to remove movie row from the Jtable
-				th.deleteRow(th.getRow(form.getMovieNameField().getText()));
+				
+				//if table value exists, then get the input value, get the row it's located, and delete that row
+				if(th.valueExists(form.getMovieNameField().getText())) {
+					th.deleteRow(th.getRow(form.getMovieNameField().getText()));
+				}
+				
 				
 				
 			}

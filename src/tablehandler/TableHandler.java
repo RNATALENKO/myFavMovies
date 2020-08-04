@@ -61,10 +61,10 @@ public class TableHandler {
 	
 	//method that will find the row based on a given value
 	//the issue here was that I was comparing not the contents but the rather the reference by not using the equals() method
+	//needs validation for a non existing movie name, otherwise if movieName doesn't exist, row will continue to be returned as 0 
 	public int getRow(String movieName) {
-		
-		int row = 0;
-		
+	
+		int row = 0; 
 		
 		for(int x = 0; x < dtm.getRowCount(); x++) {
 			 
@@ -79,12 +79,22 @@ public class TableHandler {
 			
 		}
 		
-		
 		//System.out.println(dtm.getValueAt(0, 1)); this will print the 2nd coloumn, 1st row value which is Tarzan
 		
 		return row; 
 		
 	}
 	
+	
+	//method that checks if table value exists
+	public boolean valueExists(String movieName) {
+		
+		for(int x = 0; x < dtm.getRowCount(); x++) {
+			if(dtm.getValueAt(x, 1).equals(movieName)) {
+				return true; 
+			}
+		}
+		return false; 
+	}
 
 }

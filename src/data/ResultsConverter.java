@@ -20,10 +20,6 @@ public class ResultsConverter {
 			rows = dh.countNumberOfRows();
 			columns = results.getMetaData().getColumnCount();
 			array = new String[rows][columns];
-		
-			//print the rows and columns
-			System.out.println(String.format("rows: %s", Integer.toString(rows)));
-			System.out.println(String.format("colums: %s", Integer.toString(columns)));
 			
 			while(results.next()) {
 				

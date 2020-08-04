@@ -32,10 +32,6 @@ public class TableHandler {
 		//notify listeners data structure changed, repaint or validate? 
 		dtm.fireTableDataChanged();
 	}
-	
-	
-	
-	
 
 	
 	public void deleteRow(int row) {
@@ -44,8 +40,6 @@ public class TableHandler {
 		
 		//notify listeners
 	}
-	
-	
 	
 	
 	public void deleteAllRows() {

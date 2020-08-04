@@ -115,6 +115,7 @@ public class DataHandler {
 		
 		
 		//method that will get the Id based on movie name
+		//needs a test
 		public int getId(String movieName) throws ClassNotFoundException, SQLException {
 			
 			//check connection
@@ -133,9 +134,6 @@ public class DataHandler {
 			return id; 
 			
 		}
-		
-		
-		
 		
 		
 		

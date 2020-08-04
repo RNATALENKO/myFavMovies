@@ -31,8 +31,7 @@ public class MainFrame extends JFrame{
 	
 	
 	
-	
-	
+
 	private void setWindow() {
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +65,8 @@ public class MainFrame extends JFrame{
 				add(contentPanel);
 				
 				
-				
+				//print initial database info
+				dh.printDatabaseInfo();
 
 				
 				//activate add, delete, delete all button execution
@@ -74,14 +74,7 @@ public class MainFrame extends JFrame{
 				mbe.executeDelete();
 				mbe.executeDeleteAll();
 				
-				
-			
-				//set the Jtabel data and columns
-		
-				
-			
-			
-				
+					
 	}
 }
 

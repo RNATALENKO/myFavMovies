@@ -65,7 +65,7 @@ public class MainFrame extends JFrame{
 				add(contentPanel);
 				
 				
-				//print initial database info
+				//print initial database info on starting
 				dh.printDatabaseInfo();
 
 				

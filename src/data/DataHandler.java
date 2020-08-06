@@ -114,6 +114,54 @@ public class DataHandler {
 		
 		
 		
+		
+		//validation:
+		//method that will check if a record exists; 
+		public boolean checkRecord(String movieName) throws ClassNotFoundException, SQLException {
+			
+			//check connection
+			if(this.dm.getConn() == null) {
+				dm.getConnection();
+			}
+			
+			//execute a query with the movie name
+			PreparedStatement findrecord = this.dm.getConn().prepareStatement("SELECT name FROM movies WHERE name=?");
+			findrecord.setString(1, movieName);
+			ResultSet results = findrecord.executeQuery();
+			
+			//you have check if a record exists in a query by invoking next()
+			if(results.next()) {
+				return true;
+			}
+			else {
+				return false; 
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//method that will get the Id based on movie name
 		//needs a test
 		public int getId(String movieName) throws ClassNotFoundException, SQLException {
@@ -233,9 +281,5 @@ public class DataHandler {
 			}
 			
 			return columnNames; 	
-		}
-		
-		 
-		
-		
+		}	
 }

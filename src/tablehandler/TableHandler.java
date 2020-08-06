@@ -49,7 +49,6 @@ public class TableHandler {
 		
 		//notify listeners
 		dtm.fireTableDataChanged();
-	
 	}
 	
 	

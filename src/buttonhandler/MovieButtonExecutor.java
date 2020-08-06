@@ -172,6 +172,7 @@ public class MovieButtonExecutor {
 				dh.printDatabaseInfo();
 			
 				//need method that updates JTable
+				th.deleteAllRows();
 				
 			}
 		});

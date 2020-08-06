@@ -28,6 +28,8 @@ import guicomponents.MovieFormPanel;
  * 
  * Then finally deploy the application, let friends test it, get feedback
  * 
+ * After hitting a button, clear the form texts.
+ * 
  */
 
 

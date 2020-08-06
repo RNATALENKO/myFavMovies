@@ -44,17 +44,11 @@ public class TableHandler {
 	
 	
 	public void deleteAllRows() {
-		
-		//get number of rows
-		int rows = movieTable.getModel().getRowCount();
-		
-		//loop through length of Jtable, dtm.removeRow(RowIndex); 
-		for(int rowIndex = 1; rowIndex < rows; rowIndex++) {
-			dtm.removeRow(rowIndex);
-		}
+	
+		dtm.setRowCount(0);
 		
 		//notify listeners
-		
+		dtm.fireTableDataChanged();
 	
 	}
 	
@@ -73,9 +67,7 @@ public class TableHandler {
 				break;
 				
 			}
-			else {
-				System.out.println(dtm.getValueAt(x, 1));
-			}
+			
 			
 		}
 		

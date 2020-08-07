@@ -70,39 +70,32 @@ public class MovieButtonExecutor {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				//adds a movie to database
+				//if record doesn't exist and returns false, then add it
 				try {
-					dh.addMovie(form.getMovieNameField().getText(), form.getGenreField().getText());
-				} catch (ClassNotFoundException e1) {
+					
+					if(dh.checkRecord(form.getMovieNameField().getText()) == false) {
+						
+						//add movie to database
+						dh.addMovie(form.getMovieNameField().getText(), form.getGenreField().getText());
+						movieId = Integer.toString(dh.getId(form.getMovieNameField().getText()));
+						
+						//update Jtable
+						String[] row = {movieId, form.getMovieNameField().getText(), form.getGenreField().getText()};
+						th.addRow(row);
+					}
+					
+					else {
+						return;
+					}
+					
+				} catch (ClassNotFoundException | SQLException e2) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e2.printStackTrace();
 				}
 				
 				//print values of table and print row count when we add a movie
 				dh.printDatabaseInfo();
-				
-				
-				//logic to update the Jtable
-				
-				//get movie ID given movie name from form input field
-				try {
-					movieId = Integer.toString(dh.getId(form.getMovieNameField().getText()));
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	
-				String[] row = {movieId, form.getMovieNameField().getText(), form.getGenreField().getText()};
-				th.addRow(row);
-				
 			}
-			
 		});
 	}
 	
@@ -112,26 +105,23 @@ public class MovieButtonExecutor {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				//if record exists, then delete it
 				try {
-					dh.deleteMovie(form.getMovieNameField().getText());
-				} catch (ClassNotFoundException | SQLException e1) {
+					if(dh.checkRecord(form.getMovieNameField().getText()) == true) {
+						
+						//delete movie from table
+						dh.deleteMovie(form.getMovieNameField().getText());
+						
+						//update in Jtable
+						//because we already check for the record, we don't need to call th.valueExists();
+						th.deleteRow(th.getRow(form.getMovieNameField().getText()));
+				
+					}
+				} catch (ClassNotFoundException | SQLException e2) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e2.printStackTrace();
 				}
-				
-				//print values of table and print row count when we add a movie
-				dh.printDatabaseInfo();
-				
-				
-				//logic to remove movie row from the Jtable
-				
-				//if table value exists, then get the input value, get the row it's located, and delete that row
-				if(th.valueExists(form.getMovieNameField().getText())) {
-					th.deleteRow(th.getRow(form.getMovieNameField().getText()));
-				}
-				
-				
-				
 			}
 			
 		});

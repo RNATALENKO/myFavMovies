@@ -25,6 +25,7 @@ import guicomponents.MovieFormPanel;
  * 
  * Need to: create it as one instance, so the sql database doesn't get locked
  * https://stackoverflow.com/questions/177189/how-to-implement-a-single-instance-java-application
+ *
  * 
  * Then finally deploy the application, let friends test it, get feedback
  * 

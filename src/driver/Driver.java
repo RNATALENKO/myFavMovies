@@ -3,6 +3,7 @@ package driver;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import driver.MainFrame;
 import guicomponents.MovieForm;
 import guicomponents.MovieFormPanel;
+import utilities.SingleInstance;
 
 
 
@@ -31,6 +33,7 @@ import guicomponents.MovieFormPanel;
  * 
  * After hitting a button, clear the form texts.
  * 
+ * 
  */
 
 
@@ -38,8 +41,16 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		new MainFrame(); 
+		SingleInstance instance = new SingleInstance();
 		
+		try {
+			//if instance doesn't exist, run the program
+			if(!instance.instanceExists()) {
+				new MainFrame(); 
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
 }

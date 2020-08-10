@@ -41,8 +41,10 @@ public class CheckRecordTest {
 		
 		try {
 			assertTrue(dh.checkRecord("300"));
+			System.out.println(dh.checkRecord("300"));
 			//test false assertion
 			assertFalse(dh.checkRecord("asdfl;askdf;alskdjf"));
+			System.out.println(dh.checkRecord("asdfl;askdf;alskdjf"));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

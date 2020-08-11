@@ -34,6 +34,7 @@ public class SingleInstance {
 		}
 		
 		//random access file creates a stream to fread from  and to write to, to a file with specified ame
+		@SuppressWarnings("resource")
 		FileChannel channel = new RandomAccessFile(file,"rw").getChannel(); 
 		
 		//trylock() gets an exclusive lock on the channel's file

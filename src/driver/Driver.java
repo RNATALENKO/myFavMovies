@@ -33,6 +33,8 @@ import utilities.SingleInstance;
  * 
  * After hitting a button, clear the form texts.
  * 
+ * Note: to show your own local tasks, window > show view> task list
+ * 
  * 
  */
 

@@ -148,21 +148,21 @@ public class MovieButtonExecutor {
 				
 				if(confirmationNumber == JOptionPane.YES_OPTION) {
 					deleteConfirmation = true; 
-				}
+					
+					//perform the delete all functionality
+					try {
+						dh.deleteAllRecords(deleteConfirmation);
+					} catch (SQLException | ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					//print values of table and print row count when we add a movie
+					dh.printDatabaseInfo();
 				
-				//perform the delete movie
-				try {
-					dh.deleteAllRecords(deleteConfirmation);
-				} catch (SQLException | ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					//need method that updates JTable
+					th.deleteAllRows();
 				}
-				
-				//print values of table and print row count when we add a movie
-				dh.printDatabaseInfo();
-			
-				//need method that updates JTable
-				th.deleteAllRows();
 				
 			}
 		});

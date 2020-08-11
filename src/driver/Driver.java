@@ -47,8 +47,10 @@ public class Driver {
 		
 		try {
 			//if instance doesn't exist, run the program
+
 			if(!instance.instanceExists()) {
 				new MainFrame(); 
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
